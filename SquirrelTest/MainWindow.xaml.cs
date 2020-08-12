@@ -31,13 +31,24 @@ namespace SquirrelTest
 
         private async Task CheckForUpdates()
         {
+            ReleaseMessage.Text = "Searching for actualizations...";
             try
             {
                 UpdateManager updateManager;
                 using (var mgr = await UpdateManager.GitHubUpdateManager("https://github.com/PaulMirve/SquirrelHelloWorld"))
                 {
-                    updateManager = mgr;
-                    var release = await mgr.UpdateApp();
+                    var updateInfo = await mgr.CheckForUpdate();
+                    if (updateInfo.ReleasesToApply.Any())
+                    {
+                        ReleaseMessage.Text = "Updating...";
+                        var versionCount = updateInfo.ReleasesToApply.Count;
+                        updateManager = mgr;
+                        var release = await mgr.UpdateApp().ContinueWith(t => ReleaseMessage.Text = "The app is updated!");
+                    }
+                    else
+                    {
+                        ReleaseMessage.Text = "No actualizations avaiable";
+                    }
                 }
             }
             catch (Exception ex)

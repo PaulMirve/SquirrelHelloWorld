@@ -6,10 +6,13 @@
         xmlns:local="clr-namespace:SquirrelTest"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <StackPanel Margin="20">
-        <TextBlock HorizontalAlignment="Center" FontSize="40">
+    <Grid Margin="20">
+        <StackPanel>
+            <TextBlock HorizontalAlignment="Center" FontSize="40">
             <Bold>HELLO WORLD!</Bold>
-        </TextBlock>
-        <TextBlock Name="GreetingMessage" HorizontalAlignment="Center"/>
-    </StackPanel>
+            </TextBlock>
+            <TextBlock Name="GreetingMessage" HorizontalAlignment="Center"/>
+        </StackPanel>
+        <TextBlock Name="ReleaseMessage" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+    </Grid>
 </Window>
