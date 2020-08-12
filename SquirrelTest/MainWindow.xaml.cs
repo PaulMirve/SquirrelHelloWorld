@@ -41,9 +41,8 @@ namespace SquirrelTest
                     if (updateInfo.ReleasesToApply.Any())
                     {
                         ReleaseMessage.Text = "Updating...";
-                        var versionCount = updateInfo.ReleasesToApply.Count;
                         updateManager = mgr;
-                        var release = await mgr.UpdateApp().ContinueWith(t => ReleaseMessage.Text = "The app is updated!");
+                        var release = await mgr.UpdateApp();
                     }
                     else
                     {
