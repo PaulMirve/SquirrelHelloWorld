@@ -26,14 +26,26 @@ namespace SquirrelTest
         {
             InitializeComponent();
             AddVersionNumber();
-            //CheckForUpdates();
+            CheckForUpdates();
         }
 
         private async Task CheckForUpdates()
         {
-            using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/PaulMirve/SquirrelHelloWorld"))
+            try
             {
-                await mgr.Result.UpdateApp();
+                UpdateManager updateManager;
+                using (var mgr = await UpdateManager.GitHubUpdateManager("https://github.com/PaulMirve/SquirrelHelloWorld"))
+                {
+                    updateManager = mgr;
+                    var release = await mgr.UpdateApp();
+                }
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message + Environment.NewLine;
+                if (ex.InnerException != null)
+                    message += ex.InnerException.Message;
+                MessageBox.Show(message);
             }
         }
 
