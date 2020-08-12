@@ -40,7 +40,11 @@ namespace SquirrelTest
                     var updateInfo = await mgr.CheckForUpdate();
                     if (updateInfo.ReleasesToApply.Any())
                     {
-                        ReleaseMessage.Text = "Updating...";
+                        Dispatcher.Invoke(() =>
+                        {
+                            ReleaseMessage.Text = "Updating...";
+                        });
+
                         updateManager = mgr;
                         var release = await mgr.UpdateApp();
                     }
