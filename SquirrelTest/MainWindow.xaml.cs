@@ -40,13 +40,10 @@ namespace SquirrelTest
                     var updateInfo = await mgr.CheckForUpdate();
                     if (updateInfo.ReleasesToApply.Any())
                     {
-                        Dispatcher.Invoke(() =>
-                        {
-                            ReleaseMessage.Text = "Updating...";
-                        });
-
+                        ReleaseMessage.Text = "Updating...";
                         updateManager = mgr;
-                        var release = await mgr.UpdateApp();
+                        var release = await mgr.UpdateApp()
+                            .ContinueWith(t => MessageBox.Show("Updated successfuly. The app is going to close.", "Updated successfuly", MessageBoxButton.OK, MessageBoxImage.Information));
                     }
                     else
                     {
