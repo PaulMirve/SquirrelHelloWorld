@@ -42,8 +42,9 @@ namespace SquirrelTest
                     {
                         ReleaseMessage.Text = "Updating...";
                         updateManager = mgr;
-                        var release = await mgr.UpdateApp()
-                            .ContinueWith(t => MessageBox.Show("Updated successfuly. The app is going to close.", "Updated successfuly", MessageBoxButton.OK, MessageBoxImage.Information));
+
+                        var release = await mgr.UpdateApp();
+                        UpdatedSuccessfuly();
                     }
                     else
                     {
@@ -66,6 +67,12 @@ namespace SquirrelTest
             FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
             GreetingMessage.Text = "This application is currently in its " + versionInfo.FileVersion + " version.";
             this.Title = $"v.{versionInfo.FileVersion}";
+        }
+
+        private void UpdatedSuccessfuly()
+        {
+            MessageBox.Show("Updated successfuly. The app is going to close.", "Updated successfuly", MessageBoxButton.OK, MessageBoxImage.Information);
+            Application.Current.Shutdown();
         }
     }
 }
